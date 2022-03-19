@@ -1,0 +1,87 @@
+{% extends 'telegramBot/user-layout.html' %}
+{% block head %}
+<style>
+    #example1 {
+  font-size: 0.8em;
+}
+</style>
+{% endblock %}
+{% block heading %} 
+Telegram DM BOT
+{% endblock %}
+{% block content %}
+<div class="container my-2">
+    <form action="/telegramBot/telegram-dm-bot" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-group">
+        <label for="exampleInputEmail1">Hash ID:</label>
+        <input id="link1" type="text" class="form-control" id="exampleInputEmail1" name="hash_id" aria-describedby="emailHelp" placeholder="Enter Hash ID" required>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputEmail1">Hash Key:</label>
+        <input id="link1" type="text" class="form-control" id="exampleInputEmail1" name="hash_key" aria-describedby="emailHelp" placeholder="Enter Hash Key" required>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputEmail1">Telegram Number:</label>
+        <input id="link1" type="number" class="form-control" id="exampleInputEmail1" name="number" aria-describedby="emailHelp" placeholder="92xxxxxxxxxxx" required>
+        </div>
+        <div class="form-group">
+        <label for="exampleInputEmail1">Session File:</label>
+        <input id="link1" type="file" class="form-control" id="exampleInputEmail1" name="session_file" aria-describedby="emailHelp" placeholder="Session File">
+        </div>
+        <button type="submit" class="btn btn-primary">Start Session</button>
+        </div>
+        
+        </div>
+    </form>
+</div>
+<div class="table-responsive">      
+    <h2>Telegram Accounts</h2>
+    <table id="example1" class="display compact hover nowrap table table-bordered table-striped" style="width: 100%;">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Hash Key</th>
+              <th scope="col">Hash ID</th>
+              <th scope="col">Number</th>
+              <th scope="col">Verified</th>
+              <th scope="col">Telegram DM Bot</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in telegram_accounts %}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{i.hash_key}}</td>
+              <td>{{i.hash_id}}</td>
+              <td>{{i.number}}</td>
+              {% if i.session_file %}
+              <td><button class="btn btn-success btn-sm">Verified</button></td>
+              {% else %}
+              <td><button class="btn btn-danger btn-sm">Not Verified</button></td>
+              {% endif %}
+              <td><a href="/telegramBot/telegram-dmBot-send/{{i.id}}/1"><button type="button" class="btn btn-outline-dark btn-sm">Open DM Bot</button></a></td>
+              <td><a href="/telegramBot/edit-telegram-account/{{i.id}}"><button type="button" class="btn btn-outline-primary btn-sm">Edit</button></a></td>
+              <td><a href="delete-telegram-account/{{i.id}}"><button onclick="deleteAlert()" type="button" class="btn btn-outline-danger btn-sm">Delete</button></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block scripts %} 
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

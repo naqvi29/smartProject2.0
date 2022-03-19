@@ -1,0 +1,5 @@
+[client]
+database = smartProject
+user = root
+password = danGER522a
+default-character-set = utf8
